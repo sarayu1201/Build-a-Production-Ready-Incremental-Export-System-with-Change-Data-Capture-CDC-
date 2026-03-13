@@ -1,0 +1,50 @@
+version: '3.8'
+
+services:
+  app:
+    build: .
+    container_name: export-app
+    ports:
+      - "8080:8080"
+    environment:
+      - DATABASE_URL=postgresql://user:password@db:5432/mydatabase
+      - POSTGRES_USER=user
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_DB=mydatabase
+      - PORT=8080
+      - NODE_ENV=production
+      - EXPORT_OUTPUT_DIR=/app/output
+    depends_on:
+      db:
+        condition: service_healthy
+    volumes:
+      - ./output:/app/output
+    networks:
+      - export-network
+    restart: unless-stopped
+
+  db:
+    image: postgres:13
+    container_name: export-db
+    environment:
+      - POSTGRES_USER=user
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_DB=mydatabase
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./seeds:/docker-entrypoint-initdb.d
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U user -d mydatabase"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - export-network
+    restart: unless-stopped
+
+volumes:
+  postgres_data:
+
+networks:
+  export-network:
+    driver: bridge
