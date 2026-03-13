@@ -1,0 +1,34 @@
+{
+  "name": "incremental-export-system",
+  "version": "1.0.0",
+  "description": "Production-ready incremental export system with CDC",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node src/index.js",
+    "dev": "nodemon src/index.js",
+    "test": "jest --coverage",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage --coverageReporters=text"
+  },
+  "keywords": [
+    "cdc",
+    "export",
+    "watermark",
+    "incremental"
+  ],
+  "author": "Sarayu",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.18.0",
+    "pg": "^8.8.0",
+    "uuid": "^9.0.0",
+    "winston": "^3.8.0",
+    "csv-writer": "^1.6.0",
+    "dotenv": "^16.0.0"
+  },
+  "devDependencies": {
+    "jest": "^29.0.0",
+    "supertest": "^6.3.0",
+    "nodemon": "^2.0.0"
+  }
+}
