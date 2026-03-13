@@ -1,0 +1,33 @@
+# Dependencies
+node_modules/
+venv/
+.env
+.env.local
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Build output
+dist/
+build/
+target/
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+
+# Export output
+output/
+!output/.gitkeep
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Docker
+.dockerignore
